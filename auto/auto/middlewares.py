@@ -7,7 +7,10 @@ from scrapy import signals
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
+from scrapy.utils.response import response_status_message
+from scrapy.downloadermiddlewares.retry import RetryMiddleware
 
+import time
 
 class AutoSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,

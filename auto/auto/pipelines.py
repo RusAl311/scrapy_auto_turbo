@@ -7,6 +7,9 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 import psycopg2
+from sqlalchemy.orm import sessionmaker
+from scrapy.exceptions import DropItem
+from auto.models import Auto, SalonAuto, db_connect, create_table
 
 
 class AutoPipeline(object):
@@ -42,10 +45,20 @@ class SaveAutosPipeline(object):
         auto.transmission = item["transmission"]
         auto.drivetype = item["drivetype"]
         auto.new = item["new"]
-        auto.price = item["price"]
+        auto.pricem = item["pricem"]
+        auto.priced = item["priced"]
         auto.order = item["order"]
         auto.name = item["name"]
         auto.number = item["number"]
+        auto.adddate = item["adddate"]
+
+        # adddate = current_date
+        
+        if auto.pricem == 1:
+            auto.pricem = 1.7 * auto.priced
+
+        if auto.priced == 1:
+            auto.priced = auto.pricem / 1.7
 
         try:
             session.add(auto)

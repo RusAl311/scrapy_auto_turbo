@@ -31,11 +31,15 @@ class Auto(Base):
     power = Column('Power', Integer)
     fuel = Column('Fuel', String)
     mileage = Column('Mileage', Integer)
-    trasnmission = Column('Trasnmission', String)
+    transmission = Column('Transmission', String)
     drivetype = Column('DriveType', String)
     new = Column('New', Boolean)
     pricem = Column('PriceM', Integer)
+    priced = Column('PriceD', Integer)
     order = Column('Order', Integer)
+    name = Column('Name', String)
+    number = Column('Number', String)
+    adddate = Column('AddDate', Date)
 
 class SalonAuto(Base):
     __tablename__ = "SalonAutos"
@@ -51,8 +55,9 @@ class SalonAuto(Base):
     power = Column('Power', Integer)
     fuel = Column('Fuel', String)
     mileage = Column('Mileage', Integer)
-    trasnmission = Column('Trasnmission', String)
+    transmission = Column('Transmission', String)
     drivetype = Column('DriveType', String)
     new = Column('New', Boolean)
     pricem = Column('PriceM', Integer)
+    priced = Column('PriceD', Integer)
     order = Column('Order', Integer)

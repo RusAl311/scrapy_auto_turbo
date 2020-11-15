@@ -13,7 +13,7 @@ SPIDER_MODULES = ['auto.spiders']
 NEWSPIDER_MODULE = 'auto.spiders'
 
 #Postgres
-CONNECTION_STRING = "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}?charset=utf8".format(
+CONNECTION_STRING = "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}".format(
     drivername = "postgresql+psycopg2",
     user = "postgres",
     passwd = "",
@@ -77,6 +77,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+   'auto.pipelines.SaveAutosPipeline': 200,    
    'auto.pipelines.AutoPipeline': 300,
 }
 

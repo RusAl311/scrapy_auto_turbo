@@ -16,8 +16,8 @@ NEWSPIDER_MODULE = 'auto.spiders'
 CONNECTION_STRING = "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}".format(
     drivername = "postgresql+psycopg2",
     user = "postgres",
-    passwd = "",
-    host = "localhost",
+    passwd = "realqiymet31",
+    host = "10.114.0.3",
     port = "5432",
     db_name = "realqiymet"
 )

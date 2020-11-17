@@ -12,32 +12,25 @@ class AutoSpider(CrawlSpider):
     name = "autos"
     allowed_domains = ['turbo.az']
     start_urls = [
-        #'https://turbo.az/',
         'https://turbo.az/autos',
-        # 'https://turbo.az/avtosalonlar'
     ]
 
     rules = (
         Rule(
             LinkExtractor(
+                restrict_xpaths=['//div[@class="pagination-container"]/nav[@class="pagination"]/span[@class="next"]/a']
+            ), callback='parse_auto', follow=True
+        ),
+        Rule(
+            LinkExtractor(
                 restrict_xpaths=['//a[@class="products-i-link"]']
             ), callback='parse_auto', follow=False
         ),
-        #Rule(
-        #     LinkExtractor(
-        #         restrict_xpaths=['//a[@class="shops-i featured"]']
-        #     ), callback='parse_salon_auto', follow=True
-        # ),
-        # Rule(
-        #     LinkExtractor(
-        #         restrict_xpaths=['//a[@class="products-i-link"]']
-        #     ), callback='parse_salon_auto', follow=False
-        # ),
     )
 
     def parse_auto(self, response):
         exists = response.xpath('//div[@class="product-properties-container"]').extract_first()
-        salon = response.xpath('//div[@class="products-i vipped salon"]').extract_first()
+        salon = response.xpath('//div[@class="products-i vipped salon"]').extract()
         manat = response.xpath('//div[@class="product-price"]/span/text()').extract_first()
         selector = Selector(response)
         l = AutosItemLoader(AutoItem(), selector)
@@ -68,11 +61,10 @@ class AutoSpider(CrawlSpider):
                 l.add_xpath('name', '//div[@class="seller-name"]/p/text()')
                 l.add_xpath('number', '//div[@class="seller-phone"]/a/text()')
                 l.add_value('adddate', datetime.datetime.now())
+                
             
             return l.load_item()
-            #return 0
-        # for a in response.xpath('div[@class="pagination-container"]/nav/span[@class="next"]/a'):
-        #     yield response.follow(a, self.parse_auto)
+        
 
 
     def parse_salon_auto(self, response):

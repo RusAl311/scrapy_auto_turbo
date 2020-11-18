@@ -7,6 +7,9 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+from auto import pipelines
+
+
 BOT_NAME = 'auto'
 
 SPIDER_MODULES = ['auto.spiders']
@@ -81,8 +84,10 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'auto.pipelines.SaveAutosPipeline': 200,    
-   'auto.pipelines.AutoPipeline': 300,
+#    'auto.pipelines.SaveAutosPipeline': 200,    
+#    'auto.pipelines.AutoPipeline': 300,
+#    'auto.pipelines.SaveSalonsPipeline': 200,
+#    'auto.pipelines.SalonPipeline': 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

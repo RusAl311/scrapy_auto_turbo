@@ -1,9 +1,11 @@
+from enum import unique
 from sqlalchemy import create_engine, Column, Table, ForeignKey, MetaData
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
     Integer, String, Date, DateTime, Float, Boolean, Text)
 from scrapy.utils.project import get_project_settings
+from sqlalchemy.sql.elements import CollationClause
 
 Base = declarative_base()
 
@@ -60,4 +62,6 @@ class SalonAuto(Base):
     new = Column('New', Boolean)
     pricem = Column('PriceM', Integer)
     priced = Column('PriceD', Integer)
-    order = Column('Order', Integer)
+    order = Column('Order', Integer, nullable=False, unique=True)
+    isdealer = Column('IsDealer', Boolean)
+    salonname = Column('SalonName', String)

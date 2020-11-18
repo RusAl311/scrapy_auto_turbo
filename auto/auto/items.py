@@ -6,7 +6,6 @@
 import scrapy
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst, MapCompose, Join
-import unicodedata
 
 
 def proceed_usd(text):
@@ -123,11 +122,12 @@ class SalonItem(scrapy.Item):
     transmission = scrapy.Field()
     drivetype = scrapy.Field()
     new = scrapy.Field()
-    price = scrapy.Field()
+    pricem = scrapy.Field()
+    priced = scrapy.Field()
     order = scrapy.Field()
-    salon = scrapy.Field()
-    name = scrapy.Field()
-    number = scrapy.Field()
+    isdealer = scrapy.Field()
+    salonname = scrapy.Field()
+    adddate = scrapy.Field()
 
 class SalonsItemLoader(ItemLoader):
     city_out = TakeFirst()
@@ -147,10 +147,12 @@ class SalonsItemLoader(ItemLoader):
     drivetype_out = TakeFirst()
     new_in = MapCompose(normalize_new)
     new_out = TakeFirst()
-    price_in = MapCompose(remove_price)
-    price_out = TakeFirst()
+    pricem_in = MapCompose(proceed_manat)
+    pricem_out = TakeFirst()
+    priced_in = MapCompose(proceed_usd)
+    priced_out = TakeFirst()
     order_in = MapCompose(remove_order)
     order_out = TakeFirst()
-    salon_out = TakeFirst()
-    name_out = TakeFirst()
-    number_out = TakeFirst()
+    isdealer_out = TakeFirst()
+    salonname_out = TakeFirst()
+    adddate_out = TakeFirst()

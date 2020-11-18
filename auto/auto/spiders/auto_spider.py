@@ -14,6 +14,17 @@ class AutoSpider(CrawlSpider):
     start_urls = [
         'https://turbo.az/autos',
     ]
+    # pipelines = set([
+    #     'auto.pipelines.SaveAutosPipeline',
+    #     'auto.pipelines.AutoPipeline',
+    # ])
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'auto.pipelines.SaveAutosPipeline': 200,
+            'auto.pipelines.AutoPipeline': 300,
+        }
+    }
+
 
     rules = (
         Rule(

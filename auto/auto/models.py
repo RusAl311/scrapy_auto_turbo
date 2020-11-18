@@ -36,7 +36,7 @@ class Auto(Base):
     new = Column('New', Boolean)
     pricem = Column('PriceM', Integer)
     priced = Column('PriceD', Integer)
-    order = Column('Order', Integer)
+    order = Column('Order', Integer, nullable=False)
     name = Column('Name', String)
     number = Column('Number', String)
     adddate = Column('AddDate', Date)

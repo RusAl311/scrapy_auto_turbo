@@ -52,13 +52,52 @@ class SaveAutosPipeline(object):
         auto.number = item["number"]
         auto.adddate = item["adddate"]
 
-        # adddate = current_date
-        
+        order_exist = session.query(Auto).filter_by(order = auto.order).first()
+        if  order_exist is not None: # the current order exists
+            if order_exist.priced == 1:
+                order_exist.priced = order_exist.pricem / 1.7
+
+            if order_exist.pricem == 1:
+                order_exist.pricem = 1.7 * order_exist.priced
+
+            if auto.priced == order_exist.priced:
+                order_exist.order = None
+            else:
+                 auto.priced = order_exist.priced
+                 auto.order = order_exist.order
+
+            if auto.pricem == order_exist.pricem:
+                order_exist.order = None
+            else:
+                auto.pricem == order_exist.pricem
+                auto.order = order_exist.order
+            print('Exist', auto.order)
+        else:
+            auto.order = item["order"]
+            print(auto.order)
+
+
+        # if order_exist:
+        #     order_exist.pricem = item["pricem"]
+        #     if order_exist.pricem == 1:
+        #         order_exist.pricem = 1.7 * order_exist.priced
+        #     order_exist.priced = item["priced"]
+        #     if order_exist.priced == 1:
+        #         order_exist.priced = order_exist.pricem / 1.7
+        #     auto.order = order_exist
+        #     print('order exist', order_exist.order)
+        # else:
+        #     auto.order = item["order"]
+
+
         if auto.pricem == 1:
             auto.pricem = 1.7 * auto.priced
 
         if auto.priced == 1:
             auto.priced = auto.pricem / 1.7
+
+
+
 
         try:
             session.add(auto)

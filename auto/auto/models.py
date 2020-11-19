@@ -22,7 +22,7 @@ def create_table(engine):
 class Auto(Base):
     __tablename__ = "Autos"
 
-    id = Column(Integer, primary_key=True)
+    # id = Column(Integer, primary_key=True)
     city = Column('City', String)
     brand = Column('Brand', String)
     model = Column('Model', String)
@@ -38,7 +38,7 @@ class Auto(Base):
     new = Column('New', Boolean)
     pricem = Column('PriceM', Integer)
     priced = Column('PriceD', Integer)
-    order = Column('Order', Integer, nullable=False)
+    order = Column('Order', Integer, primary_key=True)
     name = Column('Name', String)
     number = Column('Number', String)
     adddate = Column('AddDate', Date)
@@ -46,7 +46,7 @@ class Auto(Base):
 class SalonAuto(Base):
     __tablename__ = "SalonAutos"
 
-    id = Column(Integer, primary_key=True)
+    # id = Column(Integer, primary_key=True)
     city = Column('City', String)
     brand = Column('Brand', String)
     model = Column('Model', String)
@@ -62,6 +62,6 @@ class SalonAuto(Base):
     new = Column('New', Boolean)
     pricem = Column('PriceM', Integer)
     priced = Column('PriceD', Integer)
-    order = Column('Order', Integer, nullable=False, unique=True)
+    order = Column('Order', Integer, primary_key=True)
     isdealer = Column('IsDealer', Boolean)
     salonname = Column('SalonName', String)

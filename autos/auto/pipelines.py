@@ -9,7 +9,7 @@ from itemadapter import ItemAdapter
 import psycopg2
 from sqlalchemy.orm import sessionmaker
 from scrapy.exceptions import DropItem
-from auto.models import Auto, SalonAuto, db_connect, create_table
+from auto.models import Auto, SalonAuto, OldAuto, db_connect, create_table
 
 
 class AutoPipeline(object):
@@ -180,3 +180,86 @@ class SaveSalonsPipeline(object):
             session.close()
         
         return item
+
+class OldAutoPipeline(object):
+    def process_item(self, item, spider):
+        return item
+
+class SaveOldAutosPipeline(object):
+    def __init__(self):
+        """
+        Initializes database connection and sessionmaker
+        Creates tables
+        """
+        engine = db_connect()
+        create_table(engine)
+        self.Session = sessionmaker(bind=engine)
+
+    def process_item(self, item, spider):
+        """Save quotes in the database
+        This method is called for every item pipeline component
+        """
+        session = self.Session()
+        oldauto = OldAuto()
+        oldauto.city = item["city"]
+        oldauto.brand = item["brand"]
+        oldauto.model = item["model"]
+        oldauto.year = item["year"]
+        oldauto.bodytype = item["bodytype"]
+        oldauto.color = item["color"]
+        oldauto.engine = item["engine"]
+        oldauto.power = item["power"]
+        oldauto.fuel = item["fuel"]
+        oldauto.mileage = item["mileage"]
+        oldauto.transmission = item["transmission"]
+        oldauto.drivetype = item["drivetype"]
+        oldauto.new = item["new"]
+        oldauto.pricem = item["pricem"]
+        oldauto.priced = item["priced"]
+        oldauto.order = item["order"]
+        oldauto.adddate = item["adddate"]
+
+        order_exist = session.query(OldAuto).filter_by(order = oldauto.order).first()
+        if  order_exist is not None: # the current order exists
+            if order_exist.priced == 1:
+                order_exist.priced = order_exist.pricem / 1.7
+
+            if order_exist.pricem == 1:
+                order_exist.pricem = 1.7 * order_exist.priced
+
+            if oldauto.priced == order_exist.priced:
+                order_exist.order = None
+            else:
+                 oldauto.priced = order_exist.priced
+                 oldauto.order = order_exist.order
+
+            if oldauto.pricem == order_exist.pricem:
+                order_exist.order = None
+            else:
+                oldauto.pricem == order_exist.pricem
+                oldauto.order = order_exist.order
+            print('Exist', oldauto.order)
+        else:
+            oldauto.order = item["order"]
+            print(oldauto.order)
+
+        if oldauto.pricem == 1:
+            oldauto.pricem = 1.7 * oldauto.priced
+
+        if oldauto.priced == 1:
+            oldauto.priced = oldauto.pricem / 1.7
+
+
+        try:
+            session.add(oldauto)
+            session.commit()
+        
+        except:
+            session.rollback()
+            raise
+        
+        finally:
+            session.close()
+        
+        return item
+

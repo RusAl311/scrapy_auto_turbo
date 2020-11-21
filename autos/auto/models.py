@@ -65,3 +65,26 @@ class SalonAuto(Base):
     order = Column('Order', Integer, primary_key=True)
     isdealer = Column('IsDealer', Boolean)
     salonname = Column('SalonName', String)
+    adddate = Column('AddDate', Date)
+
+class OldAuto(Base):
+    __tablename__ = "OldAutos"
+
+    # id = Column(Integer, primary_key=True)
+    city = Column('City', String)
+    brand = Column('Brand', String)
+    model = Column('Model', String)
+    year = Column('Year', Integer)
+    bodytype = Column('BodyType', String)
+    color = Column('Color', String)
+    engine = Column('Engine', Float)
+    power = Column('Power', Integer)
+    fuel = Column('Fuel', String)
+    mileage = Column('Mileage', Integer)
+    transmission = Column('Transmission', String)
+    drivetype = Column('DriveType', String)
+    new = Column('New', Boolean)
+    pricem = Column('PriceM', Integer)
+    priced = Column('PriceD', Integer)
+    order = Column('Order', Integer, primary_key=True)
+    adddate = Column('AddDate', Date)

@@ -11,9 +11,7 @@ RUN apt-get install -y libpq-dev \
                         gcc
 RUN pip install -r requirements.txt
 
-COPY /auto .
+COPY /autos .
 
-# CMD ["python", "scrapy crawl autos -o data.json"]
-
-
+CMD ["python3", "auto/scriptauto.py"]
 

@@ -1,15 +1,15 @@
-from auto import pipelines
+from ..items import SalonItem, SalonsItemLoader
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 
-from auto.items import SalonsItemLoader, SalonItem
+# from auto.items import SalonsItemLoader, SalonItem
 import datetime
 
 # pages = int(input('How many pages do you want to scrape: '))
 
 
-class AutoSalonSpider(CrawlSpider):
+class AutoDealerSpider(CrawlSpider):
     name = "dealer_autos"
     allowed_domains = ['turbo.az']
     start_urls = [
@@ -21,6 +21,7 @@ class AutoSalonSpider(CrawlSpider):
             'auto.pipelines.SalonPipeline': 300,
         }, 
         'DEPTH_LIMIT': 2,
+        # 'ASYNCIO_EVENT_LOOP': True,
     }
 
     rules = (

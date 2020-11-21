@@ -1,9 +1,10 @@
-from auto import pipelines
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
 
-from auto.items import SalonsItemLoader, SalonItem
+
 import datetime
 
 # pages = int(input('How many pages do you want to scrape: '))
@@ -72,3 +73,8 @@ class AutoSalonSpider(CrawlSpider):
 
 
             return s.load_item()
+
+process = CrawlerProcess(get_project_settings())
+
+process.crawl(AutoSalonSpider)
+process.start()

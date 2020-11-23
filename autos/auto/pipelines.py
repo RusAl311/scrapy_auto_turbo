@@ -6,7 +6,6 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-import psycopg2
 from sqlalchemy.orm import sessionmaker
 from scrapy.exceptions import DropItem
 from auto.models import Auto, SalonAuto, OldAuto, db_connect, create_table

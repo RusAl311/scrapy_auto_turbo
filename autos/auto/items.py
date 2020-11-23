@@ -5,7 +5,8 @@
 
 import scrapy
 from scrapy.loader import ItemLoader
-from scrapy.loader.processors import TakeFirst, MapCompose, Join
+# from scrapy.loader.processors import TakeFirst, MapCompose
+from itemloaders.processors import TakeFirst, MapCompose
 from datetime import datetime
 
 

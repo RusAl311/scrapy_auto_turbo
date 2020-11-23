@@ -1,24 +1,35 @@
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
+from scrapy.utils.project import get_project_settings
 
 from ..items import OldAutosItemLoader, OldAutoItem
-import datetime
 
 
 # pages = int(input('How many pages do you want to scrape: '))
 
 
+
 class OldAutoSpider(CrawlSpider):
     name = "old_autos"
     allowed_domains = ['turbo.az']
-    start_urls = ['https://turbo.az/autos/%s' % page for page in range(4073151, 603621, -1)]
+    start_urls = ['https://turbo.az/autos/%s' % page for page in range(4059609, 603621, -1)]
     custom_settings = {
         'ITEM_PIPELINES': {
             'auto.pipelines.SaveOldAutosPipeline': 200,
             'auto.pipelines.OldAutoPipeline': 300,
+            'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+            'scrapy_useragents.downloadermiddlewares.useragents.UserAgentsMiddleware': 500,
         },
-        'DOWNLOAD_DELAY': 5
+        'DOWNLOAD_DELAY': 1.5,
+        'ROBOTSTXT_OBEY': True,
+        'COOKIES_ENABLED': False,
+        'ROTATING_PROXY_LIST': [
+            '178.128.50.52:3128',
+            '182.160.119.155:8080',
+            '198.58.11.39:8080',
+            '178.115.253.35:8080'
+        ],
     }
     rules = (
         Rule(

@@ -18,6 +18,9 @@ class AutoSpider(CrawlSpider):
         'ITEM_PIPELINES': {
             'auto.pipelines.SaveAutosPipeline': 200,
             'auto.pipelines.AutoPipeline': 300,
+        },
+        'PROXY': {
+            'http://94.20.248.46:3130'
         }
     }
 

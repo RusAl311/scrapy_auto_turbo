@@ -19,6 +19,10 @@ class AutoSpider(CrawlSpider):
             'auto.pipelines.SaveAutosPipeline': 200,
             'auto.pipelines.AutoPipeline': 300,
         },
+        # 'ROTATING_PROXY_LIST': {
+        #     'https://Selrustammaliyev:Y8v5HvY@193.233.30.93:45785'
+        # }
+
     }
 
 

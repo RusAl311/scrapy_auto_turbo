@@ -134,3 +134,17 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+ROTATING_PROXY_LIST = [
+    'http://209.127.191.180:80',
+    'http://45.130.255.198:80',
+    'http://45.130.255.243:80',
+    'http://185.164.56.20:80',
+    'http://45.130.255.147:80',
+    'http://45.95.96.132:80',
+    'http://45.95.96.237:80',
+    'http://45.95.96.187:80',
+    'http://45.94.47.66:80',
+    'http://193.8.56.119:80'
+    # 'https://Selrustammaliyev:Y8v5HvY@193.233.30.93:45785'
+]
+

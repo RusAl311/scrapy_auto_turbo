@@ -1,7 +1,9 @@
+import scrapy
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from scrapy.utils.project import get_project_settings
+import cfscrape
 
 from ..items import OldAutosItemLoader, OldAutoItem
 
@@ -14,22 +16,35 @@ class OldAutoSpider(CrawlSpider):
     name = "old_autos"
     allowed_domains = ['turbo.az']
     start_urls = ['https://turbo.az/autos/%s' % page for page in range(4059609, 603621, -1)]
+
+    # def start_requests(self):
+    #     """
+    #     :param self:
+    #     """
+    #     try:
+    #         token = cfscrape.get_tokens(OldAutoSpider.start_urls[0])
+    #         for url in OldAutoSpider.start_urls:
+    #             yield scrapy.Request(
+    #                 url=url,
+    #                 cookies=token,
+    #             )
+
     custom_settings = {
         'ITEM_PIPELINES': {
             'auto.pipelines.SaveOldAutosPipeline': 200,
             'auto.pipelines.OldAutoPipeline': 300,
-            'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-            'scrapy_useragents.downloadermiddlewares.useragents.UserAgentsMiddleware': 500,
         },
-        'DOWNLOAD_DELAY': 1.5,
+        'DOWNLOAD_DELAY': 2,
         'ROBOTSTXT_OBEY': True,
         'COOKIES_ENABLED': False,
-        'ROTATING_PROXY_LIST': [
-            '178.128.50.52:3128',
-            '182.160.119.155:8080',
-            '198.58.11.39:8080',
-            '178.115.253.35:8080'
-        ],
+        # 'ROTATING_PROXY_LIST': [
+        #     'http://smzrwyhr-dest:rqbu6c1p620k@209.127.191.180:80',
+        #     'http://smzrwyhr-dest:rqbu6c1p620k@193.8.56.119:80',
+        #     'http://smzrwyhr-dest:rqbu6c1p620k@185.164.56.20:80',
+        #     'http://smzrwyhr-dest:rqbu6c1p620k@45.130.255.243:80',
+        #     'http://smzrwyhr-dest:rqbu6c1p620k@45.95.96.132:80',
+        #     'http://smzrwyhr-dest:rqbu6c1p620k@45.95.96.237:80',
+        # ],
     }
     rules = (
         Rule(

@@ -60,8 +60,8 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 2
-RANDOMIZE_DOWNLOAD_DELAY = True
+# DOWNLOAD_DELAY = 2
+# RANDOMIZE_DOWNLOAD_DELAY = True
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -87,7 +87,10 @@ TELNETCONSOLE_ENABLED = False
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 400,
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
+    'scrapy_proxies.RandomProxy': 100,
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+    #'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 400,
     # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
     # 'auto.middlewares.TooManyRequestsRetryMiddleware': 543,
     # 'scrapy_cloudflare_middleware.middlewares.CloudFlareMiddleware': 560,
@@ -134,17 +137,45 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-ROTATING_PROXY_LIST = [
-    'http://209.127.191.180:80',
-    'http://45.130.255.198:80',
-    'http://45.130.255.243:80',
-    'http://185.164.56.20:80',
-    'http://45.130.255.147:80',
-    'http://45.95.96.132:80',
-    'http://45.95.96.237:80',
-    'http://45.95.96.187:80',
-    'http://45.94.47.66:80',
-    'http://193.8.56.119:80'
-    # 'https://Selrustammaliyev:Y8v5HvY@193.233.30.93:45785'
-]
+RETRY_TIMES = 10
+RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 408]
 
+# ROTATING_PROXY_LIST = [
+#     'http://209.127.191.180:80',
+#     'http://45.130.255.198:80',
+#     'http://45.130.255.243:80',
+#     'http://185.164.56.20:80',
+#     'http://45.130.255.147:80',
+#     'http://45.95.96.132:80',
+#     'http://45.95.96.237:80',
+#     'http://45.95.96.187:80',
+#     'http://45.94.47.66:80',
+#     'http://193.8.56.119:80'
+#     # 'https://Selrustammaliyev:Y8v5HvY@193.233.30.93:45785'
+# ]
+
+PROXY_LIST = '../autos/auto/list.txt'
+PROXY_MODE = 0
+
+# http://smzrwyhr-dest:rqbu6c1p620k@209.127.191.180:80
+# http://smzrwyhr-dest:rqbu6c1p620k@45.130.255.198:80
+# http://smzrwyhr-dest:rqbu6c1p620k@45.130.255.243:80
+# http://smzrwyhr-dest:rqbu6c1p620k@185.164.56.20:80
+# http://smzrwyhr-dest:rqbu6c1p620k@45.130.255.147:80
+# http://smzrwyhr-dest:rqbu6c1p620k@45.95.96.132:80
+# http://smzrwyhr-dest:rqbu6c1p620k@45.95.96.237:80
+# http://smzrwyhr-dest:rqbu6c1p620k@45.95.96.187:80
+# http://smzrwyhr-dest:rqbu6c1p620k@45.94.47.66:80
+# http://smzrwyhr-dest:rqbu6c1p620k@193.8.56.119:80
+
+
+# http://209.127.191.180:80
+# http://45.130.255.198:80
+# http://45.130.255.243:80
+# http://185.164.56.20:80
+# http://45.130.255.147:80
+# http://45.95.96.132:80
+# http://45.95.96.237:80
+# http://45.95.96.187:80
+# http://45.94.47.66:80
+# http://193.8.56.119:80

@@ -15,7 +15,7 @@ from ..items import OldAutosItemLoader, OldAutoItem
 class OldAutoSpider(CrawlSpider):
     name = "old_autos"
     allowed_domains = ['turbo.az']
-    start_urls = ['https://turbo.az/autos/%s' % page for page in range(4059609, 603621, -1)]
+    start_urls = ['https://turbo.az/autos/%s' % page for page in range(3895724, 603621, -1)]
 
     # def start_requests(self):
     #     """
